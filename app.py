@@ -35,6 +35,7 @@ def pokeName():
 def pokeStats(data, userPokemon):
     print("Name:", userPokemon.name)
     print("Species:", data["name"])
+    print("Level: ", userPokemon.level)
     print("Height:", data['height'])
     print("Weight:", data['weight'])
     print("Health:", userPokemon.health)
@@ -50,10 +51,14 @@ def feedPokemon(userPokemon):
         print("Health updated!")
 
 def trainPokemon(userPokemon):
-    if userPokemon.health <= 20:
+    if(userPokemon.health <= 20):
         print("Health is too low to train!")
     else:
         userPokemon.train()
+    print("Current level:", userPokemon.level)
+
+def battlePokemon(userPokemon):
+    pass
 
 def runGame():
     userAnswer = instructions()
@@ -61,7 +66,7 @@ def runGame():
         myPokemon = getUserPokemon()
         myPokemonData = myPokemon.json()
         myName = pokeName()
-        userPokemon = pokemon(myName, 100)
+        userPokemon = pokemon(myName)
         mySpecies = myPokemonData["name"]
         print("Your", mySpecies, "is now named", myName)
         keepPlaying = True
@@ -71,29 +76,31 @@ def runGame():
                 pokeStats(myPokemonData, userPokemon)
             elif(opt == 3):
                 feedPokemon(userPokemon)
+            elif(opt == 2):
+                battlePokemon(userPokemon)
             elif(opt == 1):
                 trainPokemon(userPokemon)
-            
-
     else:
         print("That's too bad... see you next time!")
 
 class pokemon:
-    def __init__(self, name, health):
+    def __init__(self, name):
         self.name = name
         self.health = 100
+        self.level = 0
 
     def setName(self, name):
         self.name = name 
 
-    def eat(self, health):
-        if(health > 90):
+    def eat(self):
+        if(self.health > 90):
             self.health = 100
         else:
             self.health += 10
 
-    def train(self, health):
+    def train(self):
         self.health -= 20
+        self.level += 1
 
 
 runGame()
