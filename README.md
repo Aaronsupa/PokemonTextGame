@@ -8,7 +8,7 @@
 
 ## Instructions
 
-### Future Improvements
+## Future Improvements
 
 * Web functionality
 * More functions for Pokemon

@@ -1,4 +1,5 @@
 import requests
+import random
 
 
 def instructions():
@@ -11,12 +12,12 @@ def instructions():
 
 def options():
     print("What would you like to do now? Type the number of the corresponding choice")
-    print("1: Train Pokemon")
-    print("2: Battle a Random Pokemon")
-    print("3: Feed my Pokemon")
-    print("4: See my Pokemon's stats")
-    answer = int(input())
-    while(answer > 4 or answer < 0):
+    print("[1] Train Pokemon")
+    print("[2] Battle a Random Pokemon")
+    print("[3] Feed my Pokemon")
+    print("[4] See my Pokemon's stats")
+    answer = int(input("Your Choice: "))
+    while(answer > 4 or answer <= 0):
           answer = int(input("Invalid answer: "))
     return answer
 
@@ -33,6 +34,7 @@ def pokeName():
     return name
 
 def pokeStats(data, userPokemon):
+    print("\n")
     print("Name:", userPokemon.name)
     print("Species:", data["name"])
     print("Level: ", userPokemon.level)
@@ -42,23 +44,48 @@ def pokeStats(data, userPokemon):
     length = len(data["abilities"])
     for ability in range(length):
         print("Abilities:", data["abilities"][ability]["ability"]["name"])
+    print("\n")
 
 def feedPokemon(userPokemon):
+    print("\n")
     if(userPokemon.health == 100):
         print("No need to eat!")
     else: 
         userPokemon.eat()
         print("Health updated!")
+        print("Current health:", userPokemon.health)
+    print("\n")
+    
 
 def trainPokemon(userPokemon):
+    print("\n")
     if(userPokemon.health <= 20):
         print("Health is too low to train!")
     else:
-        userPokemon.train()
+        if(userPokemon.level < 100):
+            userPokemon.train()
+        else:
+            print("Max Level Reached!")
     print("Current level:", userPokemon.level)
+    print("Current health:", userPokemon.health)
+    print("\n")
 
 def battlePokemon(userPokemon):
-    pass
+    print("\n")
+    rand = random.randint(0,100 - userPokemon.level)
+    userPokemon.health -= rand
+    if(userPokemon.health <= 0):
+        print("You Died!", end = "\n")
+        print("See you next time!")
+        return False
+    print(userPokemon.name, "survived the battle.", end = "\n")
+    gainLevel = random.randint(0,1)
+    if(gainLevel == 1):
+        userPokemon.level+=1
+        print("You gained a level!")
+    print("Current health:", userPokemon.health)
+    print("\n")
+    return True
 
 def runGame():
     userAnswer = instructions()
@@ -77,11 +104,23 @@ def runGame():
             elif(opt == 3):
                 feedPokemon(userPokemon)
             elif(opt == 2):
-                battlePokemon(userPokemon)
+                result = battlePokemon(userPokemon)
+                if(not result):
+                    break
             elif(opt == 1):
                 trainPokemon(userPokemon)
+            keepPlaying = keepPlayingGame()
     else:
         print("That's too bad... see you next time!")
+
+def keepPlayingGame():
+    userAnswer = input("Would you like to keep playing? (y/n):")
+    if(userAnswer.lower() == "y"):
+        return True
+    else:
+        print("Too bad... See you next time!")
+        return False
+
 
 class pokemon:
     def __init__(self, name):
