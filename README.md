@@ -12,6 +12,23 @@
 
 ## Instructions
 
+### Dependencies 
+ ```python
+ import requests
+ import random
+ ```
+
+ ### Installation 
+ ```bash
+ git clone https://github.com/Aaronsupa/PokemonTextGame.git
+ cd PokePal!
+ python app.py
+ ```
+
+ ### Execution
+
+ * Press the run button and follow the instructions provided in the terminal 
+
 ## Future Improvements
 
 * Web functionality
