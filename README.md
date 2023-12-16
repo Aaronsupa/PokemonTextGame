@@ -22,12 +22,12 @@
  ```bash
  git clone https://github.com/Aaronsupa/PokemonTextGame.git
  cd PokemonTextGame
- python app.py
  ```
 
  ### Execution
-
- * Press the run button and follow the instructions provided in the terminal 
+ ```bash
+ python app.py
+ ```
 
 ## Future Improvements
 
