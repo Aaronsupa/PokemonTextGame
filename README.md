@@ -21,7 +21,7 @@
  ### Installation 
  ```bash
  git clone https://github.com/Aaronsupa/PokemonTextGame.git
- cd PokePal!
+ cd PokemonTextGame
  python app.py
  ```
 
